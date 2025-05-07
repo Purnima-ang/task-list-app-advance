@@ -17,10 +17,17 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install dependencies and run tests
+    - name: Install dependencies
       run: |
         pip install -r web/requirements.txt
         pip install pytest  # Add this line to install pytest
+
+    - name: Set PYTHONPATH for pytest
+      run: |
+        echo "PYTHONPATH=$(pwd)/web" >> $GITHUB_ENV  # Set PYTHONPATH environment variable
+
+    - name: Run tests with pytest
+      run: |
         pytest web/tests  # Adjust path if needed
 
     - name: Set up Docker Buildx
@@ -38,4 +45,3 @@ jobs:
         context: ./web
         push: true
         tags: purnimang/task_app:latest
-
