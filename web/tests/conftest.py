@@ -1,5 +1,5 @@
 import pytest
-from web.app import create_app  # Now valid
+from app import create_app  # Now valid
 
 @pytest.fixture
 def app():
