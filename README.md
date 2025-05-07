@@ -13,7 +13,8 @@ This project is a multi-service Task List web application built with **Flask**, 
 - 🔐 Environment-specific configuration (`.env.dev`, `.env.prod`)
 - 📦 Multi-stage builds for optimized images
 - 🚢 CI/CD pipeline with GitHub Actions + Docker Hub
-- 📊 Optional: Advanced logging & monitoring with ELK / Prometheus
+- 📊 Advanced logging with Fluentd
+- 📈 Monitoring with Prometheus (ready to connect with Grafana)
 
 ---
 
@@ -33,6 +34,8 @@ task-list-app/
 │       └── index.html
 ├── fluentd/
 │   └── fluent.conf
+├── prometheus/
+│   └── prometheus.yml
 ├── db/                   # PostgreSQL
 │   ├── Dockerfile
 │   └── init.sql
@@ -143,16 +146,9 @@ DOCKER_USERNAME
 DOCKER_PASSWORD
 
 📊 Logging & Monitoring (Bonus)
-To enable advanced logging/monitoring:
+📊 Logging with Fluentd
 
-Option A: ELK Stack
-Logstash collects logs from services
-
-Elasticsearch stores them
-
-Kibana visualizes
-
-Option B: Prometheus + Grafana
+📊Prometheus + Grafana
 Prometheus scrapes metrics
 
 Grafana dashboards visualize service health

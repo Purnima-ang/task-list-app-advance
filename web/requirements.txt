@@ -5,4 +5,4 @@ gunicorn
 pytest
 pytest-flask
 fluent-logger
-
+prometheus_flask_exporter

@@ -4,15 +4,20 @@ import redis
 import os
 import psycopg2
 import logging
+from prometheus_flask_exporter import PrometheusMetrics
 
 def create_app():
     app = Flask(__name__)
 
-    # Set up logging configuration
+    # Set up logging configuration (log rotation to avoid file growth)
     logging.basicConfig(level=logging.INFO)  # Log to stdout with level INFO
     logger = logging.getLogger(__name__)
 
-
+    handler = logging.handlers.RotatingFileHandler('app.log', maxBytes=1000000, backupCount=3)
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
     # Configuration
     app.config['REDIS_HOST'] = os.environ.get('REDIS_HOST', 'cache')
@@ -23,6 +28,9 @@ def create_app():
     app.config['DB_PASSWORD'] = os.environ.get('DB_PASSWORD', 'postgres')
 
     r = redis.Redis(host=app.config['REDIS_HOST'], port=app.config['REDIS_PORT'])
+
+    # Integrate Prometheus for metrics collection
+    metrics = PrometheusMetrics(app)
 
     def get_db_connection():
         logger.info("Connecting to the database...")
@@ -104,6 +112,11 @@ def create_app():
     def health():
         logger.info("Health check endpoint hit.")
         return 'OK', 200
+
+    @app.route('/metrics')
+    def metrics_route():
+        logger.info("Prometheus metrics endpoint hit.")
+        return metrics()
 
     return app
 
