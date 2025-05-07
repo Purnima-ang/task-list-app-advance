@@ -52,5 +52,14 @@ services:
       timeout: 10s
       retries: 5
 
+  fluentd:
+    image: fluent/fluentd:v1.14-1
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./fluentd:/fluentd
+    command: fluentd -c /fluentd/fluent.conf
+
 volumes:
   db_data:
