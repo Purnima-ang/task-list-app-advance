@@ -45,4 +45,6 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
 EXPOSE 5000
 
 # Use Gunicorn for production WSGI server
-CMD ["gunicorn", "--workers=4", "--threads=2", "--bind=0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "app:create_app()", "--bind", "0.0.0.0:5000", "--workers=4", "--threads=2"]
+
+
