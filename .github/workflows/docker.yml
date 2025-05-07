@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -11,6 +11,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies and run tests
+      run: |
+        pip install -r web/requirements.txt
+        pytest web/tests  # Adjust path if needed
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
