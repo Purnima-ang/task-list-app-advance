@@ -44,4 +44,4 @@ jobs:
       with:
         context: ./web
         push: true
-        tags: purnimang/task_app:latest
+        tags: purnimang/task_app:web
