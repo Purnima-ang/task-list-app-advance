@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ master,task_advance ]
+    branches: [ master, task_advance ]
 
 jobs:
   build:
@@ -20,15 +20,15 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r web/requirements.txt
-        pip install pytest  # Add this line to install pytest
+        pip install pytest
 
     - name: Set PYTHONPATH for pytest
       run: |
-        echo "PYTHONPATH=$(pwd)/web" >> $GITHUB_ENV  # Set PYTHONPATH environment variable
+        echo "PYTHONPATH=$(pwd)/web" >> $GITHUB_ENV  # Set PYTHONPATH to the web folder
 
     - name: Run tests with pytest
       run: |
-        pytest web/tests  # Adjust path if needed
+        pytest web/tests  # Run the tests in the web/tests directory
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
