@@ -4,6 +4,7 @@ import redis
 import os
 import psycopg2
 import logging
+from logging.handlers import RotatingFileHandler  # Explicit import
 from prometheus_flask_exporter import PrometheusMetrics
 
 def create_app():
@@ -13,7 +14,7 @@ def create_app():
     logging.basicConfig(level=logging.INFO)  # Log to stdout with level INFO
     logger = logging.getLogger(__name__)
 
-    handler = logging.handlers.RotatingFileHandler('app.log', maxBytes=1000000, backupCount=3)
+    handler = RotatingFileHandler('app.log', maxBytes=1000000, backupCount=3)  # Use the imported handler
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)

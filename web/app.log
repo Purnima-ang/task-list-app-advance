@@ -68,3 +68,33 @@
 2025-05-07 17:41:51,901 - app - INFO - Connecting to the database...
 2025-05-07 17:41:51,905 - app - INFO - Database connection established.
 2025-05-07 17:41:51,908 - app - INFO - Tasks retrieved from database and cached.
+2025-05-07 17:42:20,246 - app - INFO - Health check endpoint hit.
+2025-05-07 17:42:50,441 - app - INFO - Health check endpoint hit.
+2025-05-07 17:43:20,545 - app - INFO - Health check endpoint hit.
+2025-05-07 17:43:50,611 - app - INFO - Health check endpoint hit.
+2025-05-07 17:44:20,690 - app - INFO - Health check endpoint hit.
+2025-05-07 17:44:50,781 - app - INFO - Health check endpoint hit.
+2025-05-07 17:45:20,844 - app - INFO - Health check endpoint hit.
+2025-05-07 17:45:50,959 - app - INFO - Health check endpoint hit.
+2025-05-07 17:46:21,027 - app - INFO - Health check endpoint hit.
+2025-05-07 17:46:51,097 - app - INFO - Health check endpoint hit.
+2025-05-07 17:47:21,225 - app - INFO - Health check endpoint hit.
+2025-05-07 17:47:51,299 - app - INFO - Health check endpoint hit.
+2025-05-07 17:48:21,378 - app - INFO - Health check endpoint hit.
+2025-05-07 17:48:51,446 - app - INFO - Health check endpoint hit.
+2025-05-07 17:49:21,544 - app - INFO - Health check endpoint hit.
+2025-05-07 17:49:51,630 - app - INFO - Health check endpoint hit.
+2025-05-07 17:50:21,736 - app - INFO - Health check endpoint hit.
+2025-05-07 17:50:51,808 - app - INFO - Health check endpoint hit.
+2025-05-07 17:51:15,436 - app - INFO - Health check endpoint hit.
+2025-05-07 17:51:17,795 - app - INFO - Initializing the database...
+2025-05-07 17:51:17,795 - app - INFO - Connecting to the database...
+2025-05-07 17:51:17,812 - app - INFO - Database connection established.
+2025-05-07 17:51:17,828 - app - INFO - Database initialized.
+2025-05-07 17:51:17,829 - app - INFO - Adding task: added
+2025-05-07 17:51:17,830 - app - INFO - Connecting to the database...
+2025-05-07 17:51:17,836 - app - INFO - Database connection established.
+2025-05-07 17:51:17,848 - app - INFO - Task 'added' added to the database.
+2025-05-07 17:51:17,849 - app - INFO - Connecting to the database...
+2025-05-07 17:51:17,854 - app - INFO - Database connection established.
+2025-05-07 17:51:17,857 - app - INFO - Tasks retrieved from database and cached.
