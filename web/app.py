@@ -1,5 +1,5 @@
 # web/app.py
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import redis
 import os
 import psycopg2
@@ -45,26 +45,41 @@ def index():
         conn.commit()
         cur.close()
         conn.close()
-        r.delete('tasks') # Invalidate cache
+        r.delete('tasks')  # Invalidate cache
         message = f"Task '{task}' added!"
 
+    # Retrieve tasks from Redis or DB
     cached_tasks = r.get('tasks')
     if cached_tasks:
-        tasks = eval(cached_tasks.decode('utf-8'))
+        tasks = eval(cached_tasks.decode('utf-8'))  # Deserialize cached tasks
     else:
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("SELECT description FROM tasks")
         tasks = [row[0] for row in cur.fetchall()]
-        r.set('tasks', str(tasks))
+        r.set('tasks', str(tasks))  # Cache the tasks
         conn.close()
 
     return render_template('index.html', tasks=tasks, message=message)
 
+@app.route('/clear', methods=['POST'])
+def clear_tasks():
+    # Clear tasks from DB
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM tasks")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    # Invalidate Redis cache
+    r.delete('tasks')
+
+    return redirect(url_for('index'))
+
 @app.route('/health')
 def health():
     return 'OK', 200
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
