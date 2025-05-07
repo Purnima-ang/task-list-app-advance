@@ -1,8 +1,11 @@
 import pytest
-from tests import create_app  # Adjust this import based on your app's structure
+from web.app import create_app  # Now valid
 
 @pytest.fixture
-def client():
-    app = create_app()  # Initialize your Flask app here (adjust if needed)
-    with app.test_client() as client:
-        yield client
+def app():
+    app = create_app()
+    yield app
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
