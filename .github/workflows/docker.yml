@@ -20,6 +20,7 @@ jobs:
     - name: Install dependencies and run tests
       run: |
         pip install -r web/requirements.txt
+        pip install pytest  # Add this line to install pytest
         pytest web/tests  # Adjust path if needed
 
     - name: Set up Docker Buildx
