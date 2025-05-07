@@ -4,3 +4,5 @@ psycopg2-binary
 gunicorn
 pytest
 pytest-flask
+fluent-logger
+

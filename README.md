@@ -23,10 +23,16 @@ This project is a multi-service Task List web application built with **Flask**, 
 task-list-app/
 ├── web/                  # Flask app
 │   ├── app.py
+│   ├── tests
+│       └── test_app.py
+│       └── conftest.py
+│   ├── .dockerignore
 │   ├── requirements.txt
 │   ├── Dockerfile
 │   └── templates/
 │       └── index.html
+├── fluentd/
+│   └── fluent.conf
 ├── db/                   # PostgreSQL
 │   ├── Dockerfile
 │   └── init.sql
@@ -48,7 +54,7 @@ Docker Compose 1.27+
 (For CI/CD) GitHub account and Docker Hub account
 
 🚀 Run in Development
-docker compose --env-file .env.dev up --build
+docker compose --env-file .env.dev up --build -d
 
 App will be available at:
 ➡️ http://localhost:5000
@@ -76,20 +82,44 @@ environment:
 📦 Docker Setup
 Each service has its own Dockerfile
 
-The Flask app uses a multi-stage build for optimized image size
+Flask app uses a multi-stage build for optimized image size
 
 PostgreSQL data is persisted via a Docker volume (db_data)
 
-Services communicate over a default Docker bridge network
+Healthcheck added to web, db, and cache services
+
+Non-root user runs Flask app for better security
+
+Default Docker bridge network enables service communication
 
 🛡️ Security & Best Practices
-Multi-stage builds for smaller images
+Multi-stage builds reduce image size
 
-No root usage in containers (where applicable)
+Containers avoid running as root (Flask app uses appuser)
 
-.env files are excluded from git
+Healthchecks ensure services are ready before others depend on them
 
-Secrets like DOCKER_USERNAME are stored securely in GitHub
+Secrets (DOCKER_USERNAME, DOCKER_PASSWORD) stored securely in GitHub
+
+.env.* files excluded from version control
+
+🐙 Docker Hub Deployment
+🏷️ Tag Your Image
+docker tag task-list-app-web purnimang/task_app:web
+
+🔐 Log in to Docker Hub
+docker logout
+docker login
+💡 Note: If using 2FA, use a Docker Access Token.
+
+🚀 Push Image to Docker Hub
+docker push purnimang/task_app:web
+You can now pull the image via:
+
+docker pull purnimang/task_app:web
+Or run it:
+
+docker run -p 5000:5000 purnimang/task_app:web
 
 🔄 CI/CD Pipeline (GitHub Actions)
 A full pipeline is included in .github/workflows/ci.yml:
@@ -140,4 +170,5 @@ Live: http://localhost:5000
 
 Or deploy via Docker Hub:
 
-docker pull <your-dockerhub-username>/task-list-app:latest
+docker pull purnimang/task_app:web
+docker run -p 5000:5000 purnimang/task_app:web
