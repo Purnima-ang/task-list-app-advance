@@ -1,5 +1,5 @@
 import pytest
-from web.app import create_app  # Adjust this import based on your app's structure
+from app import create_app  # Adjust this import based on your app's structure
 
 @pytest.fixture
 def client():
