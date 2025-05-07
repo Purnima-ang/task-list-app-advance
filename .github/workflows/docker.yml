@@ -36,4 +36,5 @@ jobs:
       with:
         context: ./web
         push: true
-        tags: your-dockerhub-username/flask-web:latest
+        tags: purnimang/task_app:latest
+
